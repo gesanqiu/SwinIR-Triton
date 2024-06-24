@@ -166,4 +166,4 @@ cython_debug/
 
 # Model weights
 SwinIR/*
-model_repository/
+*.plan
