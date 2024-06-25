@@ -107,3 +107,18 @@ Note: Due to this [issue](https://github.com/triton-inference-server/server/issu
 
 ## Further work
 - Integrating SwinIR into TensorRT-LLM or vLLM should have better inference efficiency and higher throughput.
+
+## Reference
+If you find SwinIR useful or relevant to your research, please cite their paper:
+
+```txt
+@article{liang2021swinir,
+  title={SwinIR: Image Restoration Using Swin Transformer},
+  author={Liang, Jingyun and Cao, Jiezhang and Sun, Guolei and Zhang, Kai and Van Gool, Luc and Timofte, Radu},
+  journal={arXiv preprint arXiv:2108.10257},
+  year={2021}
+}
+```
+
+## License and Acknowledgement
+This project is released under the Apache 2.0 license. The codes are based on [SwinIR](https://github.com/JingyunLiang/SwinIR) and [Swin-Transformer-TensorRT](https://github.com/maggiez0138/Swin-Transformer-TensorRT). Please also follow their licenses. Thanks for their awesome works.
