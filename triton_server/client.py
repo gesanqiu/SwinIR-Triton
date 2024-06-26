@@ -74,13 +74,13 @@ def send_predict_request(image_path, telephoto_value):
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
         cv2.imwrite(output_path, img)
 
-        print(response.elapsed.total_seconds())
+        print(f"request time: {response.elapsed.total_seconds()*1000} ms")
         print(f"request_id: {data['request_id']}")
         print(f"receive time: {data['receive_time']}")
         print(f"response time: {data['response_time']}")
         t = data["response_time"] - data["receive_time"]
-        print(f"response time: {t} ms")
-        print(f"size: {img.size}, upScale: {scale}")
+        print(f"process time: {t} ms")
+        print(f"response image size: {img.size}, upScale: {scale}")
     else:
         print("Request failed:", response.status_code, response.text)
 
