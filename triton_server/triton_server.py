@@ -93,7 +93,7 @@ async def compliance_detection(request: UpScaleRequest, raw_request: Request):
         h_pad = client.input_shape[2] - h_old
         w_pad = client.input_shape[3] - w_old
         padded_image = np.pad(image, ((0, 0), (0, 0), (0, h_pad), (0, w_pad)), mode='constant', constant_values=0)
-        print(f'[Request ID]: {request.request_id}, input shape: {h_old}x{w_old}, padded shape: {padded_image.shape}')
+        print(f'[Request ID]: {request.request_id}, input shape: {image.shape}, padded shape: {padded_image.shape}')
 
         output = await client.inference(padded_image)
         output = output[..., :h_old * client.scale, :w_old * client.scale]
