@@ -11,7 +11,6 @@ from fastapi.responses import JSONResponse
 import numpy as np
 import base64
 import cv2
-import asyncio
 from concurrent.futures import ThreadPoolExecutor
 
 from triton_trt_swinir import SwinIRTrintonClient
@@ -106,13 +105,17 @@ async def compliance_detection(request: UpScaleRequest, raw_request: Request):
         _, encode_img = cv2.imencode(".jpg", output, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
         encoded_img_bytes = encode_img.tobytes()
         encoded_img_str = base64.b64encode(encoded_img_bytes).decode('utf-8')
+        et = time.time()
 
         response = UpScaleResponse(
             bitmap=encoded_img_str,
             upScale=client.scale,
             message="success",
+            request_id=request.request_id,
+            receive_time=int(st * 1000),
+            response_time=int(et * 1000),
         )
-        print(f'time cost: {time.time() - st}')
+        print(f'time cost: {et - st}')
         return response
     except Exception as e:
         return create_error_response(HTTPStatus.INTERNAL_SERVER_ERROR,
