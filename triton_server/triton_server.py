@@ -115,7 +115,7 @@ async def compliance_detection(request: UpScaleRequest, raw_request: Request):
             receive_time=int(st * 1000),
             response_time=int(et * 1000),
         )
-        print(f'time cost: {et - st}')
+        print(f'request id: {request.request_id}, time cost: {et - st}')
         return response
     except Exception as e:
         return create_error_response(HTTPStatus.INTERNAL_SERVER_ERROR,
