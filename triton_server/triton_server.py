@@ -6,12 +6,11 @@ from http import HTTPStatus
 import time
 
 import uvicorn
-from fastapi import FastAPI, Request, HTTPException
+from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 import numpy as np
 import base64
 import cv2
-from concurrent.futures import ThreadPoolExecutor
 
 from triton_trt_swinir import SwinIRTrintonClient
 from protocol import UpScaleRequest, UpScaleResponse, ErrorResponse

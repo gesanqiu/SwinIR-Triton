@@ -1,8 +1,6 @@
 from typing import Tuple
 
-# import tritonclient.http.aio as httpclient
 import tritonclient.grpc.aio as grpcclient
-# import tritonclient.http as httpclient
 import numpy as np
 
 
