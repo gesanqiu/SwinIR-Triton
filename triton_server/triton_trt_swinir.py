@@ -37,7 +37,6 @@ class SwinIRTrintonClient:
 
         try:
             response = await self.client.infer(model_name=self.model_name, inputs=self.inputs)
-            # response = self.client.infer(model_name=self.model_name, inputs=self.inputs)
             output = response.as_numpy('output_0')
         except Exception as e:
             print(f"Error: {e}")
@@ -50,7 +49,6 @@ class SwinIRTrintonClient:
 
         try:
             response = await self.client.infer(model_name=self.model_name, inputs=self.inputs)
-            # response = self.client.infer(model_name=self.model_name, inputs=self.inputs)
         except Exception as e:
             print(f"Error: {e}")
             raise e
