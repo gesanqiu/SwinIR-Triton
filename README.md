@@ -87,11 +87,12 @@ It requires 2 GPUs to start the TritonServer. You can modify the parameters of `
 
 ```shell
 CUDA_VISIBLE_DEVICES=0,1 tritonserver --model-repository=./model_repository --metrics-port 9012 --grpc-port 9011 --http-port 9010
+```
 
 ## Async Server
 ```shell
 # Install following prerequisites in the nvcr.io/nvidia/pytorch:24.03-py3
-apt update & apt-get install -y libgl1-mesa-glx
+apt update && apt-get install -y libgl1-mesa-glx
 pip install packing fastapi pydantic numpy opencv-python opencv-python-headless uvicorn tritonclient grpcio grpcio-tools gevent geventhttpclient aiohttp requests
 
 # server
