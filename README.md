@@ -93,7 +93,7 @@ CUDA_VISIBLE_DEVICES=0,1 tritonserver --model-repository=./model_repository --me
 ```shell
 # Install following prerequisites in the nvcr.io/nvidia/pytorch:24.03-py3
 apt update && apt-get install -y libgl1-mesa-glx
-pip install packing fastapi pydantic numpy opencv-python opencv-python-headless uvicorn tritonclient grpcio grpcio-tools gevent geventhttpclient aiohttp requests
+pip install packaging fastapi pydantic numpy opencv-python opencv-python-headless uvicorn tritonclient grpcio grpcio-tools gevent geventhttpclient aiohttp requests
 
 # server
 python ./triton_server/triton_server.py --host 0.0.0.0 --port 8888 --triton-server-host 0.0.0.0 --triton-server-port 9011 --model-configs ./triton_server/config.json
