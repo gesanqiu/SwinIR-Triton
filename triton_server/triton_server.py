@@ -11,7 +11,8 @@ from fastapi.responses import JSONResponse
 import numpy as np
 import base64
 import cv2
-from skimage import exposure
+import cupy as cp
+from cucim.skimage import exposure
 
 from triton_trt_swinir import SwinIRTrintonClient
 from protocol import UpScaleRequest, UpScaleResponse, ErrorResponse
@@ -101,8 +102,13 @@ async def compliance_detection(request: UpScaleRequest, raw_request: Request):
         output = np.clip(output, 0, 1)
         if output.ndim == 3:
             output = np.transpose(output, (1, 2, 0))[:, :, [2, 1, 0]]
+
+        # FIXME: Warmup cupy kernel
         if args.enable_clahe:
-            output = exposure.equalize_adapthist(output, kernel_size=None, clip_limit=0.01, nbins=256)
+            image_gpu = cp.asarray(output)
+            equalized_image = exposure.equalize_adapthist(image_gpu, kernel_size=None, clip_limit=0.01, nbins=256)
+            output = cp.asnumpy(equalized_image)
+
         output = (output * 255.0).round().astype(np.uint8)
         _, encode_img = cv2.imencode(".jpg", output, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
         encoded_img_bytes = encode_img.tobytes()

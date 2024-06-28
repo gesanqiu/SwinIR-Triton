@@ -106,6 +106,17 @@ python ./triton_server/client.py
 - This server accepts base64 encoded .bitmap format image and returns base64 encoded .jpg format image.
 Note: Due to this [issue](https://github.com/triton-inference-server/server/issues/7343), I use gRPC TritonClient in triton_server.py.
 
+## CLAHE
+The original API is [skimage.exposure.equalize_adapthist](https://scikit-image.org/docs/stable/api/skimage.exposure.html#skimage.exposure.equalize_adapthist), it will take about 5s to process a 4096x4096 image, so I use [cuCIM](https://docs.rapids.ai/api/cucim/stable/api/#cucim.skimage.exposure.equalize_adapthist) to accelerate the process. You can install the cuCIM package with the following command:
+```shell
+pip install \
+    --extra-index-url=https://pypi.nvidia.com \
+    cudf-cu12==24.6.* dask-cudf-cu12==24.6.* cuml-cu12==24.6.* \
+    cugraph-cu12==24.6.* cuspatial-cu12==24.6.* cuproj-cu12==24.6.* \
+    cuxfilter-cu12==24.6.* cucim-cu12==24.6.* pylibraft-cu12==24.6.* \
+    raft-dask-cu12==24.6.* cuvs-cu12==24.6.*
+```
+
 ## Further work
 - Integrating SwinIR into TensorRT-LLM or vLLM should have better inference efficiency and higher throughput.
 
