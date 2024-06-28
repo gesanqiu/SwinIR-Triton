@@ -8,8 +8,9 @@ def random_uuid() -> str:
 
 class UpScaleRequest(BaseModel):
     bitmap: str
-    telephoto: int
+    telephoto: int = 0
     request_id: str = Field(default_factory=lambda: f"request-{random_uuid()}")
+    camera_image: bool = False
 
 
 class UpScaleResponse(BaseModel):

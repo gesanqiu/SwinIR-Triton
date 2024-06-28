@@ -11,6 +11,7 @@ from fastapi.responses import JSONResponse
 import numpy as np
 import base64
 import cv2
+from skimage import exposure
 
 from triton_trt_swinir import SwinIRTrintonClient
 from protocol import UpScaleRequest, UpScaleResponse, ErrorResponse
@@ -100,6 +101,8 @@ async def compliance_detection(request: UpScaleRequest, raw_request: Request):
         output = np.clip(output, 0, 1)
         if output.ndim == 3:
             output = np.transpose(output, (1, 2, 0))[:, :, [2, 1, 0]]
+        if args.enable_clahe:
+            output = exposure.equalize_adapthist(output, kernel_size=None, clip_limit=0.01, nbins=256)
         output = (output * 255.0).round().astype(np.uint8)
         _, encode_img = cv2.imencode(".jpg", output, [int(cv2.IMWRITE_JPEG_QUALITY), 100])
         encoded_img_bytes = encode_img.tobytes()
@@ -128,6 +131,7 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=8000, help="port number")
     parser.add_argument("--triton-server-host", type=str, default=None, help="Triton Server host name")
     parser.add_argument("--triton-server-port", type=int, default=8000, help="Triton Server port number")
+    parser.add_argument("--enable-clahe", action="store_true", help="Enable Contrast Limited Adaptive Histogram Equalization (CLAHE)")
     parser.add_argument(
             '--model-configs',
             type=str,

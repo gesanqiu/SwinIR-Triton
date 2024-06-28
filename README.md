@@ -99,7 +99,7 @@ pip install packaging fastapi pydantic numpy opencv-python opencv-python-headles
 python ./triton_server/triton_server.py --host 0.0.0.0 --port 8888 --triton-server-host 0.0.0.0 --triton-server-port 9011 --model-configs ./triton_server/config.json
 
 # client
-python client.py
+python ./triton_server/client.py
 ```
 
 - This server manages multiple triton models by a hashmap, so it requires a config.json to init all the triton model instances in advance.

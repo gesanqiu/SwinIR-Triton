@@ -7,8 +7,8 @@ import cv2
 url = "http://0.0.0.0:8888/upScale"
 
 # 图片文件路径
-file_path = "256x256.bmp"
-output_path = "256x256_realSR_4x_triton.jpg"
+file_path = "./test/20240627174308.jpg"
+output_path = "./test/20240627174308_realSR_4x_triton_CLAHE.jpg"
 
 
 def encode_bmp_to_base64(image_path: str):
