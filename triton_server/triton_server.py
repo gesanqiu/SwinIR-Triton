@@ -104,7 +104,7 @@ async def compliance_detection(request: UpScaleRequest, raw_request: Request):
             output = np.transpose(output, (1, 2, 0))[:, :, [2, 1, 0]]
 
         # FIXME: Warmup cupy kernel
-        if args.enable_clahe:
+        if args.enable_clahe or request.camera_image:
             image_gpu = cp.asarray(output)
             equalized_image = exposure.equalize_adapthist(image_gpu, kernel_size=None, clip_limit=0.01, nbins=256)
             output = cp.asnumpy(equalized_image)
